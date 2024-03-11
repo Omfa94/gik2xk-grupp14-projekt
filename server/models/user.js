@@ -28,8 +28,8 @@ module.exports = (sequelize, DataTypes) => {
         len: [10, 20],
       },
     },
-    // {
-    //   underscored: true
-    // }
-  });
+    
+    
+  },
+  { underscored: true });
 };
