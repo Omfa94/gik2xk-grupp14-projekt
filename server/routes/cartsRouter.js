@@ -1,47 +1,48 @@
 const router = require("express").Router();
 const db = require("../models");
 const validate = require("validate.js");
-const productService= require("../services/productService");
 
 const constraints = {
-  title: {
-    length: {
-      minimum: 2,
-      maximum: 100,
-      tooShort: "^Titeln måste vara minst %{count} tecken lång.",
-      tooLong: "^Titeln får inte vara längre än %{count} tecken lång.",
+  payed: {
+    presence: {
+    allowEmpty: false,
+      message: "^Betalningsstatus måste anges."
     },
+    inclusion: {
+        within: [true, false],
+        message: "^Betalningsstatus måste vara true eller false."
+      }
   },
 };
 
 router.get("/", (req, res) => {
-    productService.getAll().then((result)=>{
-    res.status(result.status).json(result.data);
-  })
+  db.cart.findAll().then((result) => {
+    res.send(result);
+  });
 });
 
 router.post("/", (req, res) => {
-  const product = req.body;
-  const invalidData = validate(product, constraints);
+  const cart = req.body;
+  const invalidData = validate(cart, constraints);
   if (invalidData) {
     res.status(400).json(invalidData);
   } else {
-    db.product.create(product).then((result) => {
+    db.cart.create(cart).then((result) => {
       res.send(result);
     });
   }
 });
 
 router.put("/", (req, res) => {
-    const product = req.body;
-    const invalidData = validate(product, constraints);
-    const id = product.id;
+    const cart = req.body;
+    const invalidData = validate(cart, constraints);
+    const id = cart.id;
     if(invalidData || !id ){
         res.status(400).json(invalidData || "Id är obligatoriskt ");
     }else{
-        db.product
-        .update(product, {
-          where: { id: product.id },
+        db.cart
+        .update(cart, {
+          where: { id: cart.id },
         })
         .then((result) => {
           res.send(result);
@@ -50,7 +51,7 @@ router.put("/", (req, res) => {
 });
 
 router.delete("/", (req, res) => {
-  db.product
+  db.cart
     .destroy({
       where: { id: req.body.id },
     })
