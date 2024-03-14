@@ -1,7 +1,9 @@
+//kan raderas helt. vi kan sköra det genom produktraoutes.
+
 const router = require("express").Router();
 const db = require("../models");
 const validate = require("validate.js");
-
+// dubbelkolla om denna behövs.
 const constraints = {
   payed: {
     presence: {
@@ -14,7 +16,11 @@ const constraints = {
       }
   },
 };
+//hämta en specefik varokorg baserad på usersid.
+//Innehåll i body: userId, productId, amount.
+router.post("/cart/addProduct",(req,res)=>{});
 
+//hämtar hela varokorgen.
 router.get("/", (req, res) => {
   db.cart.findAll().then((result) => {
     res.send(result);

@@ -2,6 +2,10 @@ const router = require("express").Router();
 const db = require("../models");
 const validate = require("validate.js");
 
+//Använd för att hämta alla produkter som en användare lagt i sin varokorg.
+router.get("/:id/getCart/",(req,res)=>{});
+
+
 const constraints = {
   email: {
     length: {

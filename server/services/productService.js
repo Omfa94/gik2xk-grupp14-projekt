@@ -17,6 +17,15 @@ const constraints = {
   },
 };
 
+async function getById(id) {
+  try {
+    const allProducts = await db.product.findOne({ where: { id } });
+    return createResponseSuccess(allProducts);
+  } catch (error) {
+    return createResponseError(error.status, error.message);
+  }
+}
+
 async function getAll() {
   try {
     const allProducts = await db.product.findAll();
@@ -58,18 +67,18 @@ async function destroy(id) {
   if (!id) {
     return createResponseError(422, "Id är obligatoriskt");
   }
-  try{
+  try {
     await db.product.destroy({
-        where: { id }
-      });
-      return createResponseMessage(200, "Produkten raderades.");
+      where: { id },
+    });
+    return createResponseMessage(200, "Produkten raderades.");
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
-
 }
 
 module.exports = {
+  getById,
   getAll,
   create,
   update,
