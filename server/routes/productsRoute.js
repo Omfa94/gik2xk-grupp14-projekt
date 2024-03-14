@@ -1,10 +1,14 @@
 const router = require("express").Router();
 const productService = require("../services/productService");
 
-//Ge betyg till en produkt.
-router.get("/id/addRatings", (req, res) => {});
 //adda rating till produkten
-router.post("/:id/addRating", (req, res) => {});
+router.post("/:id/addRating", (req, res) => {
+  const rating = req.body;
+  const id = req.params.id;
+  productService.addRating(id, rating).then((result) => {
+    res.status(result.status).json(result.data);
+  });
+});
 
 //adda produkten till varokorgen.
 //Innehåll i body: userId, amount.

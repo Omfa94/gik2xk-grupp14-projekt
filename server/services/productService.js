@@ -19,8 +19,17 @@ const constraints = {
 
 async function getById(id) {
   try {
-    const allProducts = await db.product.findOne({ where: { id } });
-    return createResponseSuccess(allProducts);
+    const product = await db.product.findOne({
+      where: { id },
+      include: [
+        db.rating,
+        {
+          model: db.rating,
+          include: [db.user],
+        },
+      ],
+    });
+    return createResponseSuccess(_formatProduct(product));
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
@@ -28,12 +37,32 @@ async function getById(id) {
 
 async function getAll() {
   try {
-    const allProducts = await db.product.findAll();
-    return createResponseSuccess(allProducts);
+    const allProducts = await db.product.findAll({
+      include: [db.rating,
+        {
+          model: db.rating,
+          include: [db.user],
+        }]
+    });
+    return createResponseSuccess(allProducts.map(product=>_formatProduct(product)));
   } catch (error) {
     return createResponseError(error.status, error.message);
   }
 }
+
+async function addRating(id, rating) {
+  if (!id) {
+    return createResponseError(422, "Id är obligatoriskt");
+  }
+  try {
+    rating.productID = id;
+    const newRating = await db.rating.create(rating);
+    return createResponseSuccess(newRating);
+  } catch (error) {
+    return createResponseError(error.status, error.message);
+  }
+}
+
 async function create(product) {
   const invalidData = validate(product, constraints);
   if (invalidData) {
@@ -77,9 +106,68 @@ async function destroy(id) {
   }
 }
 
+
+function _formatProduct(product) {
+    const cleanProduct = {
+      id: product.id,
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      createdAt: product.createdAt, // Assuming these fields exist
+      updatedAt: product.updatedAt, // Assuming these fields exist
+      ratings: [] // Assuming a product can have multiple ratings
+    };
+  
+    // Format ratings if they exist
+    if (product.ratings) {
+      cleanProduct.ratings = product.ratings.map((rating) => {
+        return {
+          rating: rating.rating,
+          author: rating.user ? `${rating.user.firstName} ${rating.user.lastName}` : 'Anonym',
+          createdAt: rating.createdAt // Assuming this field exists
+          // More fields can be added here if necessary
+        };
+      });
+    }
+  
+    return cleanProduct;
+  }
+  
+
+//test
+// function _formatProduct(product) {
+//     const cleanProduct = {
+//       id: product.id,
+//       title: product.title,
+//       description: product.description,
+//       price: product.price,
+//       imageUrl: product.imageUrl,
+//       createdAt: product.createdAt,
+//       updatedAt: product.updatedAt,
+//       ratings:[]
+//     };
+  
+//     if (product.ratings) {
+//       cleanProduct.ratings = [];
+  
+//       product.ratings.map((rating) => {
+//         return (cleanProduct.ratings = [
+//           {
+//             body: rating.body,
+//             author: rating.user.username,
+//             createdAt: rating.createdAt
+//           },
+//           ...cleanProduct.ratings
+//         ]);
+//       });
+//     }
+//   }
+
 module.exports = {
   getById,
   getAll,
+  addRating,
   create,
   update,
   destroy,
