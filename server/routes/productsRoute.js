@@ -13,6 +13,7 @@ router.post("/:id/addToCart", (req, res) => {});
 //Hämta en specifik produkt.
 router.get("/:id", (req, res) => {
   const id = req.params.id;
+
   productService.getById(id).then((result) => {
     res.status(result.status).json(result.data);
   });
