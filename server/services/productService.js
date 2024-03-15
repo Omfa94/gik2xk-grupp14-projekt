@@ -6,6 +6,7 @@ const {
 } = require("../helpers/responseHelper");
 const validate = require("validate.js");
 
+
 const constraints = {
   title: {
     length: {
@@ -17,8 +18,8 @@ const constraints = {
   },
 };
 
-//test 
-async function addProductToCart(){};
+//logik att lägga till produkter i varokorgen. flytta från cart hit.
+// async function addProductToCart(){};
 
 async function getById(id) {
   try {
@@ -139,7 +140,7 @@ function _formatProduct(product) {
   
 
 module.exports = {
-    addProductToCart,
+  // addProductToCart,
   getById,
   getAll,
   addRating,

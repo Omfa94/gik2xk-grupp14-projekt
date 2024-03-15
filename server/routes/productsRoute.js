@@ -1,10 +1,7 @@
 const router = require("express").Router();
 const productService = require("../services/productService");
 
-//hämta en specefik varokorg baserad på usersid.
-//Innehåll i body: userId, amount.
-//test
-router.post("/:id/addToCart", (req, res) => {});
+
  
 
 //adda rating till produkten
