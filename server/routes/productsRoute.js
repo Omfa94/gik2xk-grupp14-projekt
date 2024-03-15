@@ -1,6 +1,12 @@
 const router = require("express").Router();
 const productService = require("../services/productService");
 
+//hämta en specefik varokorg baserad på usersid.
+//Innehåll i body: userId, amount.
+//test
+router.post("/:id/addToCart", (req, res) => {});
+ 
+
 //adda rating till produkten
 router.post("/:id/addRating", (req, res) => {
   const rating = req.body;
@@ -10,9 +16,23 @@ router.post("/:id/addRating", (req, res) => {
   });
 });
 
-//adda produkten till varokorgen.
-//Innehåll i body: userId, amount.
-router.post("/:id/addToCart", (req, res) => {});
+// async function getById(id) {
+//   try {
+//     const product = await db.product.findOne({
+//       where: { id },
+//       include: [
+//         db.rating,
+//         {
+//           model: db.rating,
+//           include: [db.user],
+//         },
+//       ],
+//     });
+//     return createResponseSuccess(_formatProduct(product));
+//   } catch (error) {
+//     return createResponseError(error.status, error.message);
+//   }
+// }
 
 //Hämta en specifik produkt.
 router.get("/:id", (req, res) => {

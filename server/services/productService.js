@@ -17,6 +17,9 @@ const constraints = {
   },
 };
 
+//test 
+async function addProductToCart(){};
+
 async function getById(id) {
   try {
     const product = await db.product.findOne({
@@ -70,6 +73,7 @@ async function create(product) {
   }
   try {
     const newProduct = await db.product.create(product);
+
     return createResponseSuccess(newProduct);
   } catch (error) {
     return createResponseError(error.status, error.message);
@@ -114,9 +118,9 @@ function _formatProduct(product) {
       description: product.description,
       price: product.price,
       imageUrl: product.imageUrl,
-      createdAt: product.createdAt, // Assuming these fields exist
-      updatedAt: product.updatedAt, // Assuming these fields exist
-      ratings: [] // Assuming a product can have multiple ratings
+      createdAt: product.createdAt, 
+      updatedAt: product.updatedAt, 
+      ratings: [] 
     };
   
     // Format ratings if they exist
@@ -125,8 +129,7 @@ function _formatProduct(product) {
         return {
           rating: rating.rating,
           author: rating.user ? `${rating.user.firstName} ${rating.user.lastName}` : 'Anonym',
-          createdAt: rating.createdAt // Assuming this field exists
-          // More fields can be added here if necessary
+          createdAt: rating.createdAt 
         };
       });
     }
@@ -135,36 +138,8 @@ function _formatProduct(product) {
   }
   
 
-//test
-// function _formatProduct(product) {
-//     const cleanProduct = {
-//       id: product.id,
-//       title: product.title,
-//       description: product.description,
-//       price: product.price,
-//       imageUrl: product.imageUrl,
-//       createdAt: product.createdAt,
-//       updatedAt: product.updatedAt,
-//       ratings:[]
-//     };
-  
-//     if (product.ratings) {
-//       cleanProduct.ratings = [];
-  
-//       product.ratings.map((rating) => {
-//         return (cleanProduct.ratings = [
-//           {
-//             body: rating.body,
-//             author: rating.user.username,
-//             createdAt: rating.createdAt
-//           },
-//           ...cleanProduct.ratings
-//         ]);
-//       });
-//     }
-//   }
-
 module.exports = {
+    addProductToCart,
   getById,
   getAll,
   addRating,

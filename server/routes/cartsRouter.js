@@ -16,6 +16,8 @@ const constraints = {
       }
   },
 };
+
+//kan raders.
 //hämta en specefik varokorg baserad på usersid.
 //Innehåll i body: userId, productId, amount.
 router.post("/cart/addProduct",(req,res)=>{});
