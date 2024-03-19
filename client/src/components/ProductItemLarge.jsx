@@ -7,7 +7,7 @@ function ProductItemLarge({product}) {
         day: 'numeric'
     });
     return ( 
-    <div style={{border:"1px solid black"}}>
+    <div>
         <h3>{product.title}</h3>
         <div>
             <p>Produkten skapades den:{formattedDate}</p>

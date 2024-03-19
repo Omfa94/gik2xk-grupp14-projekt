@@ -8,6 +8,7 @@ import ProductDetail from './views/ProductDetail.jsx';
 import Cart from "./views/Cart.jsx"
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { CssBaseline } from "@mui/material";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <CssBaseline/>
     <RouterProvider router={router} />
   </React.StrictMode>
 );

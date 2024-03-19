@@ -1,12 +1,12 @@
 import {Link, Outlet} from "react-router-dom"
-import {Box,AppBar,Toolbar,Typography,Button,}from '@mui/material';
+import {Box,AppBar,Toolbar,Typography,Button, Container,}from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 
 function App() {
   return (
     <>
-     <Box sx={{ flexGrow: 1 }}>
+     <Box component="header" sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
             <MenuIcon />
@@ -17,7 +17,9 @@ function App() {
         </Toolbar>
       </AppBar>
     </Box>
+    <Container sx={{mt: 4}} maxWidth="xl" component="main">
       <Outlet />
+      </Container>
     </>
   );
 }

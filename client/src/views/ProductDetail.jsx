@@ -1,10 +1,13 @@
 import ProductItemLarge from "../components/ProductItemLarge";
 import RatingForm from "../components/RatingForm";
 import CustomRating from "../components/Rating";
-import { Button } from "@mui/material";
+import { Box, Button, Container } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addRating, getOne } from "../sevices/ProductService";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import EditIcon from "@mui/icons-material/Edit";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 function ProductDetail() {
   // const product= {
@@ -34,7 +37,6 @@ function ProductDetail() {
 
   const navigate = useNavigate();
 
-  //funktion för att lägga till rating!! ett försök bara :)
   function onRatingAdd(rating) {
     addRating(product.id, rating)
       .then(() => getOne(id))
@@ -42,20 +44,34 @@ function ProductDetail() {
   }
 
   return product ? (
-    <div>
+    <Container maxWidth="lg">
       <ProductItemLarge product={product} />
-      <Button onClick={() => navigate(-1)}>Tillbaka</Button>
-      <Button onClick={() => navigate(`/products/${product.id}/edit`)}>
+      <Box display="flex" justifyContent="space-between" mb={4}>
+      <Button
+        color="secondary"
+        variant="contained"
+        startIcon={<ChevronLeftIcon />}
+        sx={{mr:2}}
+        onClick={() => navigate(-1)}
+      >
+        Tillbaka
+      </Button>
+      <Button
+        variant="contained"
+        startIcon={<EditIcon />}
+        onClick={() => navigate(`/products/${product.id}/edit`)}
+      >
         Ändra
       </Button>
-      <Button>Lägg till varokorg</Button>
+      </Box>
+      <Button variant="contained" startIcon={<AddShoppingCartIcon/>}>Lägg till varokorg</Button>
 
       <RatingForm onSave={onRatingAdd} />
       {product.ratings &&
         product.ratings.map((rating, i) => (
           <CustomRating key={`rating_${i}`} rating={rating} />
         ))}
-    </div>
+    </Container>
   ) : (
     <h3>Kunde inte hämta produkt</h3>
   );
