@@ -1,3 +1,5 @@
+import { Box, Container, Typography } from "@mui/material";
+
 function Rating({rating}) {
     const formattedDate = new Intl.DateTimeFormat('sv-SE', { 
         year: 'numeric', 
@@ -10,9 +12,17 @@ function Rating({rating}) {
 
     return (
         <>
-            <h4>{rating.rating}</h4>
-            <p>Skrivet den: {formattedDate}</p>
-            <p>Skrivet av: {rating.author}</p>
+        <Container>
+        {/* <Typography variant="h3">Betyg</Typography> */}
+
+        <Box display="flex" flexWrap="wrap">
+            <Typography>
+            <h4>Betyg: {rating.rating}</h4>
+            Skrivet den: {formattedDate} av{" "}
+            {rating.author}
+            </Typography>
+            </Box>
+            </Container>
         </>
     );
 }

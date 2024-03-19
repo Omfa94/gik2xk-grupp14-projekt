@@ -28,6 +28,7 @@ function RatingForm({onSave}) {
     }
 
     return (
+        <Box>
         <form>
             <h3>RatingForm</h3>
             <Rating
@@ -48,6 +49,7 @@ function RatingForm({onSave}) {
             )}
             <Button onClick={()=> onSave(ratingData)}>Skicka Feedback</Button>
         </form>
+        </Box>
     );
 }
 
