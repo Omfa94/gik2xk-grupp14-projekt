@@ -54,18 +54,36 @@ async function getAll() {
   }
 }
 
-async function addRating(id, rating) {
+async function addRating(id, rating, userId) { // Anta att userId nu är en parameter
   if (!id) {
     return createResponseError(422, "Id är obligatoriskt");
   }
   try {
-    rating.productID = id;
-    const newRating = await db.rating.create(rating);
+    // Skapa en ny instans av rating-objektet med nödvändiga ändringar
+    const ratingToSave = { ...rating, productId: id, userId: userId };
+    const newRating = await db.rating.create(ratingToSave);
     return createResponseSuccess(newRating);
   } catch (error) {
-    return createResponseError(error.status, error.message);
+    // Antag att createResponseError kan hantera okända eller oväntade fel
+    return createResponseError(error.status || 500, error.message || "Ett oväntat fel inträffade");
   }
 }
+
+
+
+// kan raderas kanske!
+// async function addRating(id, rating,) {
+//   if (!id) {
+//     return createResponseError(422, "Id är obligatoriskt");
+//   }
+//   try {
+//     rating.productID = id;
+//     const newRating = await db.rating.create(rating);
+//     return createResponseSuccess(newRating);
+//   } catch (error) {
+//     return createResponseError(error.status, error.message);
+//   }
+// }
 
 async function create(product) {
   const invalidData = validate(product, constraints);

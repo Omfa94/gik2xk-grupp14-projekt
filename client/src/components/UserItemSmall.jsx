@@ -8,7 +8,7 @@ function UserItemSmall({ user }) {
       
 
       <h4>
-        {user.firstName}{user.lastName} 
+        {user.firstName} {user.lastName} 
       </h4>
       {/* man kan skippa Link om man vill! */}
       <Link to={`users/${user.id}`}>

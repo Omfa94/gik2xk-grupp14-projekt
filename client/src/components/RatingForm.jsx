@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
-import {Rating,Box} from '@mui/material'; 
+import { Box, Button, Rating } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 
-function RatingForm() {
-    const [value, setValue] = useState(null);
+function RatingForm({onSave}) {
+    // Anta att vi vill inkludera både en rating och userId i state
+    const [ratingData, setRatingData] = useState({
+        userId: 1 ,// Behåller userId
+        rating: 0
+    });
     const [hover, setHover] = useState(-1);
 
     const labels = {
@@ -19,7 +23,6 @@ function RatingForm() {
         5: 'Excellent+',
     };
 
-
     function getLabelText(value) {
         return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
     }
@@ -29,23 +32,26 @@ function RatingForm() {
             <h3>RatingForm</h3>
             <Rating
                 name="hover-feedback"
-                value={value}
+                value={ratingData.rating}
                 precision={0.5}
                 getLabelText={getLabelText}
                 onChange={(_event, newValue) => {
-                    setValue(newValue);
+                    setRatingData(prev => ({ ...prev, rating: newValue }));
                 }}
                 onChangeActive={(_event, newHover) => {
                     setHover(newHover);
                 }}
                 emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
             />
-            {value !== null && (
-                <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+            {ratingData.rating !== null && (
+                <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : ratingData.rating]}</Box>
             )}
+            <Button onClick={()=> onSave(ratingData)}>Skicka Feedback</Button>
         </form>
     );
 }
 
 export default RatingForm;
 
+// alternativ om hur man ska skicka data till databasen.
+{/* <button type="button" onClick={() => yourSubmitFunction(ratingData)}>Skicka rating</button> */}
