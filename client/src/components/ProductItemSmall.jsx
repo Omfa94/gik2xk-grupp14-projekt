@@ -27,7 +27,7 @@ function ProductItemSmall({ product }) {
       <Card variant="outlined" sx={{ mb: 4 }}>
         <CardHeader
           title={
-            <Typography variant="h3">
+            <Typography variant="h3" >
               <Link to={`/products/${product.id}`}>{product.title}</Link>
             </Typography>
           }

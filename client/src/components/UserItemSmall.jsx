@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import {Link} from "react-router-dom"
 
 function UserItemSmall({ user }) {
@@ -6,15 +7,19 @@ function UserItemSmall({ user }) {
       {/* om man vill lägga till bild på användaren.  */}
       {/* <img src={user.imageUrl} alt="" /> */}
       
-
-      <h4>
+      <Box sx={{maxWidth:"20rem"}}
+      display="flex" alignItems="center" flexWrap="wrap" gap="0.7rem">
+      <Box sx={{marginBottom:"1rem"}}>
+      <h3 >
         {user.firstName} {user.lastName} 
-      </h4>
-      {/* man kan skippa Link om man vill! */}
-      <Link to={`users/${user.id}`}>
+      </h3>
+      <span>{user.email}</span>
+      </Box>
+      {/* <Link  to={`users/${user.id}`}>
       <p>E-post:{user.email}</p>
-      </Link>
-
+      
+      </Link> */}
+      </Box>
     </>
   );
 }

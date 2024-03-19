@@ -13,9 +13,9 @@ function Home() {
             <ProductList />
           </Paper>
         </Grid>
-        <Grid component="section" item xs={12} sm={4}>
+        <Grid container height="0" sx={{borderRadius: 2 }} component="section" item xs={12} sm={4}>
           <Paper elevation={3} sx={{ p: 2, mt: 4, borderRadius: 2 }}>
-          <Typography variant="h2">Användare</Typography>
+          <Typography variant="h3">Användare</Typography>
             <UserList />
           </Paper>
         </Grid>
