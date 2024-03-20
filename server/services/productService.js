@@ -22,50 +22,41 @@ const constraints = {
 // async function addProductToCart(){};
 
 async function getById(id) {
+  if(!id) {
+      return createResponseError(422, 'ID is required');
+  }
   try {
-    const product = await db.product.findOne({
-      where: { id },
-      include: [
-        db.rating,
-        {
-          model: db.rating,
-          include: [db.user],
-        },
-      ],
-    });
-    return createResponseSuccess(_formatProduct(product));
+      const product = await db.product.findOne({
+          where:{id},
+          include: [db.rating]
+      });
+      return createResponseSuccess(_formatProduct(product));
   } catch (error) {
-    return createResponseError(error.status, error.message);
+      return createResponseError(error.status, error.message);
   }
 }
 
 async function getAll() {
   try {
-    const allProducts = await db.product.findAll({
-      include: [db.rating,
-        {
-          model: db.rating,
-          include: [db.user],
-        }]
-    });
-    return createResponseSuccess(allProducts.map(product=>_formatProduct(product)));
+      const allProducts = await db.product.findAll({
+          include: [db.rating]
+      });
+      return createResponseSuccess(allProducts.map(product => _formatProduct(product)));
   } catch (error) {
-    return createResponseError(error.status, error.message);
+      return createResponseError(error.status, error.message);
   }
 }
 
-async function addRating(id, rating, userId) { // Anta att userId nu är en parameter
-  if (!id) {
-    return createResponseError(422, "Id är obligatoriskt");
+async function addRating(id, rating) {
+  if(!id) {
+      return createResponseError(422, 'ID is required');
   }
   try {
-    // Skapa en ny instans av rating-objektet med nödvändiga ändringar
-    const ratingToSave = { ...rating, productId: id, userId: userId };
-    const newRating = await db.rating.create(ratingToSave);
-    return createResponseSuccess(newRating);
+      rating.productId = id;
+      const newRating = await db.rating.create(rating);
+      return createResponseSuccess(newRating);
   } catch (error) {
-    // Antag att createResponseError kan hantera okända eller oväntade fel
-    return createResponseError(error.status || 500, error.message || "Ett oväntat fel inträffade");
+      return createResponseError(error.status, error.message);
   }
 }
 
