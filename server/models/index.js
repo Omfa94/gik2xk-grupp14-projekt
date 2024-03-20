@@ -48,12 +48,6 @@ db.product.hasMany(db.rating,{
   onDelete:"CASCADE"
 });
 
-db.rating.belongsTo(db.user);
-db.user.hasMany(db.rating,{
-  allowNull:false,
-  onDelete:"CASCADE"
-});
-
 db.cart.belongsToMany(db.product,{ through: db.cartRow });
 db.product.belongsToMany(db.cart,{ through: db.cartRow });
 

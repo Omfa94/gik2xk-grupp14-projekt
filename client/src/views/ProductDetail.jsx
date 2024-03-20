@@ -27,54 +27,54 @@ function ProductDetail() {
   //     ]
   // };
 
-  const { id } = useParams();
+    const { id } = useParams();
 
-  const [product, setproduct] = useState(null);
+    const [product, setproduct] = useState(null);
 
-  useEffect(() => {
-    getOne(id).then((product) => setproduct(product));
-  }, [id]);
+    useEffect(() => {
+      getOne(id).then((product) => setproduct(product));
+    }, [id]);
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  function onRatingAdd(rating) {
-    addRating(product.id, rating)
-      .then(() => getOne(id))
-      .then((product) => setproduct(product));
-  }
+    function onRatingAdd(rating) {
+      addRating(product.id, rating)
+        .then(() => getOne(id))
+        .then((product) => setproduct(product));
+    }
 
-  return product ? (
-    <Container maxWidth="lg">
-      <ProductItemLarge product={product} />
-      <Box display="flex" justifyContent="space-between" mb={4}>
-      <Button
-        color="secondary"
-        variant="contained"
-        startIcon={<ChevronLeftIcon />}
-        sx={{mr:2}}
-        onClick={() => navigate(-1)}
-      >
-        Tillbaka
-      </Button>
-      <Button
-        variant="contained"
-        startIcon={<EditIcon />}
-        onClick={() => navigate(`/products/${product.id}/edit`)}
-      >
-        Ändra
-      </Button>
-      </Box>
-      <Button variant="contained" startIcon={<AddShoppingCartIcon/>}>Lägg till varokorg</Button>
+    return product ? (
+      <Container maxWidth="lg">
+        <ProductItemLarge product={product} />
+        <Box display="flex" justifyContent="space-between" mb={4}>
+        <Button
+          color="secondary"
+          variant="contained"
+          startIcon={<ChevronLeftIcon />}
+          sx={{mr:2}}
+          onClick={() => navigate(-1)}
+        >
+          Tillbaka
+        </Button>
+        <Button
+          variant="contained"
+          startIcon={<EditIcon />}
+          onClick={() => navigate(`/products/${product.id}/edit`)}
+        >
+          Ändra
+        </Button>
+        </Box>
+        <Button variant="contained" startIcon={<AddShoppingCartIcon/>}>Lägg till varukorg</Button>
 
-      <RatingForm onSave={onRatingAdd} />
-      {product.ratings &&
-        product.ratings.map((rating, i) => (
-          <CustomRating key={`rating_${i}`} rating={rating} />
-        ))}
-    </Container>
-  ) : (
-    <h3>Kunde inte hämta produkt</h3>
-  );
+        <RatingForm onSave={onRatingAdd} />
+        {product.ratings &&
+          product.ratings.map((rating, i) => (
+            <CustomRating key={`rating_${i}`} rating={rating} />
+          ))}
+      </Container>
+    ) : (
+      <h3>Kunde inte hämta produkt</h3>
+    );
 }
 
 export default ProductDetail;

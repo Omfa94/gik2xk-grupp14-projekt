@@ -124,7 +124,7 @@ function ProductEdit() {
                 </Button>
               )}
             </Box>
-            <Button startIcon={<SaveIcon/>} onClick={onSave} variant="contained" color="success">
+            <Button onChange={onChange} startIcon={<SaveIcon/>} onClick={onSave} variant="contained" color="success">
               Spara
             </Button>
           </Box>
