@@ -5,7 +5,6 @@ import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
-import Rating from "../components/Rating";
 
 function ProductEdit() {
   const { id } = useParams();
