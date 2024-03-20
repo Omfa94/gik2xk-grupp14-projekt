@@ -70,21 +70,6 @@ async function addRating(id, rating, userId) { // Anta att userId nu är en para
 }
 
 
-
-// kan raderas kanske!
-// async function addRating(id, rating,) {
-//   if (!id) {
-//     return createResponseError(422, "Id är obligatoriskt");
-//   }
-//   try {
-//     rating.productID = id;
-//     const newRating = await db.rating.create(rating);
-//     return createResponseSuccess(newRating);
-//   } catch (error) {
-//     return createResponseError(error.status, error.message);
-//   }
-// }
-
 async function create(product) {
   const invalidData = validate(product, constraints);
   if (invalidData) {
