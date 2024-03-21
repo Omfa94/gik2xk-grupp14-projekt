@@ -1,3 +1,4 @@
+
 const db = require("../models");
 const validate = require("validate.js");
 const {
@@ -28,13 +29,20 @@ async function getById(id) {
 
 
 async function getCartRows(userId) {
-	const cart = await db.cart.findOne({ where: { userId: userId } });
-	console.log(cart);
-	const cartRows = await db.cartRow.findAll({
-		where: { cartId: cart.id },
-		include: [db.product],
-	});
-	return createResponseSuccess(cartRows);
+    const cart = await db.cart.findOne({ where: { userId: userId } });
+    if (!cart) {
+        // Hantera fallet då ingen kundvagn hittas för användaren
+        return createResponseError(404, 'Ingen kundvagn hittad för angiven användare');
+    }
+    const cartRows = await db.cartRow.findAll({
+        where: { cartId: cart.id },
+        include: [db.product,]
+    });
+    // Antag att createResponseSuccess är en funktion som formaterar ditt svarsobjekt
+    return createResponseSuccess(cartRows.map(row => ({
+        ...row.dataValues,
+        product: row.product // eller någon formatering av produktdata du föredrar
+    })));
 }
 
 async function addProduct(userId, productId, amount) {
@@ -82,13 +90,8 @@ async function addProduct(userId, productId, amount) {
 	}
 }
 
-//behöver man ens ha det? 
-async function create(cart) {
-	// const invalidData = validate(cart);
 
-	// if (invalidData) {
-	// 	return createResponseError(422, invalidData);
-	// }
+async function create(cart) {
 	try {
 		const newCart = await db.cart.create(cart);
 		return createResponseSuccess(newCart);

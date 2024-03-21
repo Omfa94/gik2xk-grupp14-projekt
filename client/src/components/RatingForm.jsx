@@ -11,16 +11,16 @@ function RatingForm({onSave}) {
     const [hover, setHover] = useState(-1);
 
     const labels = {
-        0.5: 'Useless',
-        1: 'Useless+',
-        1.5: 'Poor',
-        2: 'Poor+',
-        2.5: 'Ok',
-        3: 'Ok+',
-        3.5: 'Good',
-        4: 'Good+',
-        4.5: 'Excellent',
-        5: 'Excellent+',
+        0.5: 'Oanvändbar-',
+        1: 'Oanvändbar',
+        1.5: 'Dålig-',
+        2: 'Dålig',
+        2.5: 'Okej',
+        3: 'Okej+',
+        3.5: 'Bra',
+        4: 'Bra+',
+        4.5: 'Utmärkt',
+        5: 'Utmärkt+',
     };
 
     function getLabelText(value) {
@@ -30,11 +30,13 @@ function RatingForm({onSave}) {
     return (
         <Box>
         <form>
-            <h3>RatingForm</h3>
+            <h3>Betygsättning</h3>
+            <Box sx={{ pb: 3 }} >
             <Rating
                 name="hover-feedback"
                 value={ratingData.rating}
                 precision={0.5}
+                size='large'
                 getLabelText={getLabelText}
                 onChange={(_event, newValue) => {
                     setRatingData(prev => ({ ...prev, rating: newValue }));
@@ -47,7 +49,8 @@ function RatingForm({onSave}) {
             {ratingData.rating !== null && (
                 <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : ratingData.rating]}</Box>
             )}
-            <Button onClick={()=> onSave(ratingData)}>Skicka Feedback</Button>
+            </Box>
+            <Button variant="contained"  color='primary' sx={{ paddingInline: 3 }}  onClick={()=> onSave(ratingData)}>Skicka betyg</Button>
         </form>
         </Box>
     );

@@ -13,23 +13,6 @@ router.post("/:id/addRating", (req, res) => {
   });
 });
 
-// async function getById(id) {
-//   try {
-//     const product = await db.product.findOne({
-//       where: { id },
-//       include: [
-//         db.rating,
-//         {
-//           model: db.rating,
-//           include: [db.user],
-//         },
-//       ],
-//     });
-//     return createResponseSuccess(_formatProduct(product));
-//   } catch (error) {
-//     return createResponseError(error.status, error.message);
-//   }
-// }
 
 //Hämta en specifik produkt.
 router.get("/:id", (req, res) => {

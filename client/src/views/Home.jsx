@@ -1,6 +1,7 @@
 import ProductList from "../components/ProductList";
 import UserList from "../components/UserList";
 import { Grid, Paper, Typography } from "@mui/material";
+import CartList from "../components/CartList";
 
 function Home() {
   return (

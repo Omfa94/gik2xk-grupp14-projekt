@@ -15,11 +15,10 @@ function Rating({rating}) {
         <Container>
         {/* <Typography variant="h3">Betyg</Typography> */}
 
-        <Box display="flex" flexWrap="wrap">
+        <Box display="flex" flexWrap="wrap" py={2}>
             <Typography>
             <h4>Betyg: {rating.rating}</h4>
-            Skrivet den: {formattedDate} av{" "}
-            {rating.author}
+            Skrivet den: {formattedDate}
             </Typography>
             </Box>
             </Container>
