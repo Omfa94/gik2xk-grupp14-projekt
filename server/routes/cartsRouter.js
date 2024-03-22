@@ -2,7 +2,7 @@
 const router = require("express").Router();
 const db = require("../models");
 const cartService = require('../services/cartService');
-// dubbelkolla om denna behövs.
+
 const constraints = {
   payed: {
     presence: {
@@ -16,7 +16,6 @@ const constraints = {
   },
 };
 
-//hämtar hela varokorgen.
 router.get("/", (req, res) => {
   db.cart.findAll().then((result) => {
     res.send(result);

@@ -29,17 +29,15 @@ async function getById(id) {
 async function getCartRows(userId) {
     const cart = await db.cart.findOne({ where: { userId: userId } });
     if (!cart) {
-        // Hantera fallet då ingen kundvagn hittas för användaren
         return createResponseError(404, 'Ingen kundvagn hittad för angiven användare');
     }
     const cartRows = await db.cartRow.findAll({
         where: { cartId: cart.id },
         include: [db.product,]
     });
-    // Antag att createResponseSuccess är en funktion som formaterar ditt svarsobjekt
     return createResponseSuccess(cartRows.map(row => ({
         ...row.dataValues,
-        product: row.product // eller någon formatering av produktdata du föredrar
+        product: row.product
     })));
 }
 
@@ -64,16 +62,13 @@ async function addProduct(userId, productId, amount) {
 	});
 
 	if (existingCartRow) {
-		// Konvertera både existingCartRow.amount och amount till tal innan addition
 		const updatedAmount =
 			parseInt(existingCartRow.amount, 10) + parseInt(amount, 10);
 		existingCartRow.amount = updatedAmount;
 		await existingCartRow.save();
 		return createResponseSuccess(existingCartRow);
 	} else {
-		// Om ingen cartRow finns, skapa en ny
 		try {
-			// Se till att amount är ett tal
 			const newAmount = parseInt(amount, 10);
 			const newCartRow = await db.cartRow.create({
 				cartId: cart.id,
@@ -82,7 +77,6 @@ async function addProduct(userId, productId, amount) {
 			});
 			return createResponseSuccess(newCartRow);
 		} catch (error) {
-			// Hantera andra möjliga fel
 			return createResponseError(error.status || 500, error.message);
 		}
 	}

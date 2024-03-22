@@ -3,9 +3,7 @@ const db = require('../models');
 const validate = require('validate.js');
 const userService = require('../services/userService');
 
-//Använd för att hämta användarens varokorg.
 router.get("/:id/getCart/",(req,res)=>{});
-
 
 const constraints = {
   email: {

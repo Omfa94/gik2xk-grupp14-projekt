@@ -118,7 +118,6 @@ function _formatProduct(product) {
       ratings: [] 
     };
   
-    // Format ratings if they exist
     if (product.ratings) {
       cleanProduct.ratings = product.ratings.map((rating) => {
         return {
@@ -134,7 +133,6 @@ function _formatProduct(product) {
   
 
 module.exports = {
-  // addProductToCart,
   getById,
   getAll,
   addRating,
