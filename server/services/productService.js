@@ -20,7 +20,7 @@ const constraints = {
 
 async function getById(id) {
   if(!id) {
-      return createResponseError(422, 'ID är obligatiskt');
+      return createResponseError(422, 'ID är obligatoriskt');
   }
   try {
       const product = await db.product.findOne({
@@ -46,7 +46,7 @@ async function getAll() {
 
 async function addRating(id, rating) {
   if(!id) {
-      return createResponseError(422, 'ID är obligatiskt');
+      return createResponseError(422, 'ID är obligatoriskt');
   }
   try {
       rating.productId = id;
