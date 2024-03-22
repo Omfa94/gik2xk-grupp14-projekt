@@ -31,7 +31,7 @@ function RatingForm({onSave}) {
         <Box>
         <form>
             <h3>Betygsättning</h3>
-            <Box sx={{ pb: 3 }} >
+            <Box sx={{ pb: 3}} >
             <Rating
                 name="hover-feedback"
                 value={ratingData.rating}

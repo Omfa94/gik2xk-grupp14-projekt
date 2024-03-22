@@ -38,7 +38,7 @@ function ProductDetail() {
 
   const handleClickBuy = async () => {
     try {
-      await addProductToCart(id, amount);
+      await addProductToCart(id, 1, amount);
       setAlert({
         open: true,
         message: 'Produkten har lagts till i varukorgen!',

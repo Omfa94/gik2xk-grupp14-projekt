@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardMedia,
+  CardHeader,
   Paper,
   Typography,
 } from "@mui/material";
@@ -16,26 +17,26 @@ function ProductItemLarge({ product }) {
     day: "numeric",
   });
   return (
-    <Paper sx={{ my: 4, p: "4", borderRadius: "2" }} elevation={3}>
-      <Box>
-        <Typography variant="h2">{product.title}</Typography>
-        <Typography>Produkten skapades den:{formattedDate}</Typography>
-      </Box>
-      <Card elevation={0}>
-        <CardMedia
-            height="500"
-          component="img"
-          image={product.imageUrl || placeholderImage}
-          alt="Bild på produkten"
-        />
-        <CardContent>
-          <Typography  variant="body5">{product.description}</Typography>
-          <Box mt={5} display="flex" justifyContent="end">
-          <Typography variant="h6">{product.price} SEK</Typography>
-          </Box>
-        </CardContent>
-      </Card>
-    </Paper>
+    <Card variant="outlined" sx={{ my: 4, borderRadius: "2" }} elevation={3}>
+      <CardHeader
+        title={<Typography variant="h2">{product.title}</Typography>}
+        subheader={`Produkten skapades den: ${formattedDate}`}
+      />
+
+      <CardMedia
+        component="img"
+        height="500"
+        image={product.imageUrl || placeholderImage}
+        alt={`Bild på ${product.title}`}
+      />
+
+      <CardContent>
+        <Typography variant="body2">{product.description}</Typography>
+        <Box mt={5} display="flex" justifyContent="end">
+          <Typography variant="h6">Pris: {product.price} SEK</Typography>
+        </Box>
+      </CardContent>
+    </Card>
   );
 }
 
