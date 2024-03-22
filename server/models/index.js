@@ -37,11 +37,16 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+db.cart.belongsTo(db.user, { 
+  foreignKey: {
+    allowNull: false 
+  }
+});
 
-
-
-db.cart.belongsTo(db.user, { foreignKey: { allowNull: false } });
-db.user.hasMany(db.cart, { allowNull: false, onDelete: 'CASCADE' });
+db.user.hasMany(db.cart, { 
+  allowNull: false, 
+  onDelete: 'CASCADE' 
+});
 
 db.rating.belongsTo(db.product);
 db.product.hasMany(db.rating, {
@@ -49,7 +54,7 @@ db.product.hasMany(db.rating, {
 	onDelete: 'CASCADE',
 });
 
-db.cartRow.belongsTo(db.product, { foreignKey: 'productId' });
+db.cartRow.belongsTo(db.product, {foreignKey: 'productId' });
 
 db.product.hasMany(db.cartRow, { foreignKey: 'productId' });
 
@@ -62,7 +67,5 @@ db.cart.belongsToMany(db.product, { through: db.cartRow });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-
 
 module.exports = db;

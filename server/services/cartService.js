@@ -1,4 +1,3 @@
-
 const db = require("../models");
 const validate = require("validate.js");
 const {
@@ -26,7 +25,6 @@ async function getById(id) {
     return createResponseError(error.status, error.message);
   }
 }
-
 
 async function getCartRows(userId) {
     const cart = await db.cart.findOne({ where: { userId: userId } });

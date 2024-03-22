@@ -16,9 +16,6 @@ const constraints = {
   },
 };
 
-
-
-
 //hämtar hela varokorgen.
 router.get("/", (req, res) => {
   db.cart.findAll().then((result) => {
