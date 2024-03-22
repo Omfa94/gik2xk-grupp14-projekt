@@ -4,9 +4,6 @@ import {Link} from "react-router-dom"
 function UserItemSmall({ user }) {
   return (
     <>
-      {/* om man vill lägga till bild på användaren.  */}
-      {/* <img src={user.imageUrl} alt="" /> */}
-      
       <Box sx={{maxWidth:"20rem"}}
       display="flex" alignItems="center" flexWrap="wrap" gap="0.7rem">
       <Box sx={{marginBottom:"1rem"}}>
@@ -15,10 +12,6 @@ function UserItemSmall({ user }) {
       </h3>
       <span>{user.email}</span>
       </Box>
-      {/* <Link  to={`users/${user.id}`}>
-      <p>E-post:{user.email}</p>
-      
-      </Link> */}
       </Box>
     </>
   );

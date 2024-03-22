@@ -9,7 +9,6 @@ router.post("/:id/addRating", (req, res) => {
   });
 });
 
-
 router.get("/:id", (req, res) => {
   const id = req.params.id;
 
@@ -17,7 +16,6 @@ router.get("/:id", (req, res) => {
     res.status(result.status).json(result.data);
   });
 });
-
 
 router.get("/", (req, res) => {
   productService.getAll().then((result) => {

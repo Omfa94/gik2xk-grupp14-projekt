@@ -18,12 +18,9 @@ const constraints = {
   },
 };
 
-//logik att lägga till produkter i varokorgen. flytta från cart hit.
-// async function addProductToCart(){};
-
 async function getById(id) {
   if(!id) {
-      return createResponseError(422, 'ID is required');
+      return createResponseError(422, 'ID är obligatiskt');
   }
   try {
       const product = await db.product.findOne({
@@ -49,7 +46,7 @@ async function getAll() {
 
 async function addRating(id, rating) {
   if(!id) {
-      return createResponseError(422, 'ID is required');
+      return createResponseError(422, 'ID är obligatiskt');
   }
   try {
       rating.productId = id;
@@ -122,7 +119,6 @@ function _formatProduct(product) {
       cleanProduct.ratings = product.ratings.map((rating) => {
         return {
           rating: rating.rating,
-          author: rating.user ? `${rating.user.firstName} ${rating.user.lastName}` : 'Anonym',
           createdAt: rating.createdAt 
         };
       });

@@ -13,8 +13,6 @@ function Rating({rating}) {
     return (
         <>
         <Container>
-        {/* <Typography variant="h3">Betyg</Typography> */}
-
         <Box display="flex" flexWrap="wrap" py={2}>
             <Typography>
             <h4>Betyg: {rating.rating}</h4>
