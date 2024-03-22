@@ -15,10 +15,6 @@ function UserItemSmall({ user }) {
       </h3>
       <span>{user.email}</span>
       </Box>
-      {/* <Link  to={`users/${user.id}`}>
-      <p>E-post:{user.email}</p>
-      
-      </Link> */}
       </Box>
     </>
   );

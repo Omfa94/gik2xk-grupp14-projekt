@@ -58,5 +58,3 @@ function RatingForm({onSave}) {
 
 export default RatingForm;
 
-// alternativ om hur man ska skicka data till databasen.
-{/* <button type="button" onClick={() => yourSubmitFunction(ratingData)}>Skicka rating</button> */}
